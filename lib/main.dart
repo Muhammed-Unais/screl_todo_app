@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:screl_todo_app/features/home/model/task_model.dart';
 import 'package:provider/provider.dart';
+import 'package:screl_todo_app/features/home/view/home_view.dart';
 import 'package:screl_todo_app/features/home/view_model/home_view_model.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,25 +32,10 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          home: const MyHomePage(),
         ),
     
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}
