@@ -39,7 +39,7 @@ class MyHomePage extends StatelessWidget {
             case Status.completed:
               var data = homeProvider.getAllTaskResponse.data;
               return ListView.separated(
-                itemCount: data?.length ??0,
+                itemCount: data?.length ?? 0,
                 padding: const EdgeInsets.all(10),
                 separatorBuilder: (context, index) {
                   return const Divider(
@@ -55,15 +55,12 @@ class MyHomePage extends StatelessWidget {
                       leading: CircleAvatar(
                         child: Text("${index + 1}"),
                       ),
-                      title:  Text(task?.task ??""),
+                      title: Text(task?.task ?? ""),
                       trailing: PopupMenuButton(
                         onSelected: (value) {
                           if (value == "Delete") {
-                           
-                           
-                        } else if (value == "Edit") {
-                          
-                        }
+                            homeProvider.deleteTask(index);
+                          } else if (value == "Edit") {}
                         },
                         itemBuilder: (context) {
                           return [
