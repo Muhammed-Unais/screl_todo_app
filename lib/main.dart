@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:screl_todo_app/features/add_task_view/view_model/add_task_view_model.dart';
 import 'package:screl_todo_app/features/home/model/task_model.dart';
 import 'package:provider/provider.dart';
 import 'package:screl_todo_app/features/home/view/home_view.dart';
@@ -23,10 +24,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => HomeViewModel(),)
+        ChangeNotifierProvider(create: (context) => HomeViewModel(),),
+        ChangeNotifierProvider(create: (context) => AddTaskViewModel(),)
       ],
       child: 
         MaterialApp(
+          debugShowCheckedModeBanner: false,
+
           title: 'Flutter Demo',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

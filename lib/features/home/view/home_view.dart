@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screl_todo_app/data/response/enums.dart';
-import 'package:screl_todo_app/features/home/view/add_tasks.dart';
+import 'package:screl_todo_app/features/add_task_view/view/add_tasks.dart';
 import 'package:screl_todo_app/features/home/view_model/home_view_model.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -38,8 +38,14 @@ class MyHomePage extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             case Status.completed:
               var data = homeProvider.getAllTaskResponse.data;
+
+              if (data!.isEmpty) {
+                return const Center(
+                  child: Text("No data"),
+                );
+              }
               return ListView.separated(
-                itemCount: data?.length ?? 0,
+                itemCount: data.length,
                 padding: const EdgeInsets.all(10),
                 separatorBuilder: (context, index) {
                   return const Divider(
@@ -48,14 +54,14 @@ class MyHomePage extends StatelessWidget {
                   );
                 },
                 itemBuilder: (context, index) {
-                  var task = data?[index];
+                  var task = data[index];
                   return Card(
                     elevation: 10,
                     child: ListTile(
                       leading: CircleAvatar(
                         child: Text("${index + 1}"),
                       ),
-                      title: Text(task?.task ?? ""),
+                      title: Text(task.task),
                       trailing: PopupMenuButton(
                         onSelected: (value) {
                           if (value == "Delete") {

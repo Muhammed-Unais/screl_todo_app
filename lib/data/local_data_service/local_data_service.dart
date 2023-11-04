@@ -24,7 +24,7 @@ class LocalDataService implements BaseLocalDataService {
   @override
   Future<void> putData(int index, TaskModel taskModel) async {
     try {
-      taskBox.put(index, taskModel);
+      taskBox.putAt(index, taskModel);
     } catch (e) {
       log(e.toString());
     }
@@ -33,7 +33,7 @@ class LocalDataService implements BaseLocalDataService {
   @override
   Future<void> deleteData(int index) async {
     try {
-      taskBox.delete(index);
+      taskBox.deleteAt(index);
     } catch (e) {
       log(e.toString());
     }
