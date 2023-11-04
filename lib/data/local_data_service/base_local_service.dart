@@ -1,4 +1,4 @@
-import 'package:screl_todo_app/model/task_model.dart';
+import 'package:screl_todo_app/features/home/model/task_model.dart';
 
 abstract interface class BaseLocalDataService {
   Future<dynamic> getData();

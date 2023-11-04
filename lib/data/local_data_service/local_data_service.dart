@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:screl_todo_app/data/local_data_service/base_local_service.dart';
-import 'package:screl_todo_app/model/task_model.dart';
+import 'package:screl_todo_app/features/home/model/task_model.dart';
 
 class LocalDataService implements BaseLocalDataService {
   final taskBox = Hive.box<TaskModel>('task-model');
@@ -16,6 +16,8 @@ class LocalDataService implements BaseLocalDataService {
       await taskBox.add(taskModel);
     } catch (e) {
       log(e.toString());
+
+      throw e.toString();
     }
   }
 

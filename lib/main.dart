@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:screl_todo_app/model/task_model.dart';
+import 'package:screl_todo_app/features/home/model/task_model.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
