@@ -12,7 +12,7 @@ Future<void> main() async {
     Hive.registerAdapter(TaskModelAdapter());
   }
 
-  Hive.openBox<TaskModel>('task-model');
+  await Hive.openBox<TaskModel>('task-model');
 
   runApp(const MyApp());
 }

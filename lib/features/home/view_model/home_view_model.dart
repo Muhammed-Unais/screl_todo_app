@@ -11,6 +11,8 @@ class HomeViewModel with ChangeNotifier {
   final _myGetAllTaskRepo =
       GetTasksRepository(baseLocalDataService: LocalDataService());
 
+  TextEditingController taskTextEditingController = TextEditingController();
+
   LocalServiceResponse<List<TaskModel>> getAllTaskResponse =
       LocalServiceResponse.loading();
 
@@ -23,7 +25,7 @@ class HomeViewModel with ChangeNotifier {
 
   void setGetAllTasks(
       LocalServiceResponse<List<TaskModel>> localServiceResponse) {
-    getAllTaskResponse = getAllTaskResponse;
+    getAllTaskResponse = localServiceResponse;
     notifyListeners();
   }
 
@@ -44,7 +46,7 @@ class HomeViewModel with ChangeNotifier {
 
   void getAllTask() async {
     setGetAllTasks(LocalServiceResponse.loading());
-    _myGetAllTaskRepo.getAllTaskRepository().then((value) {
+    await _myGetAllTaskRepo.getAllTaskRepository().then((value) {
       setGetAllTasks(LocalServiceResponse.completed(value));
 
       log(value.toString());
@@ -55,5 +57,9 @@ class HomeViewModel with ChangeNotifier {
         log(error.toString());
       },
     );
+  }
+
+  HomeViewModel() {
+    getAllTask();
   }
 }
