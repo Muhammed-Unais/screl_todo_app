@@ -59,7 +59,21 @@ class MyHomePage extends StatelessWidget {
                     elevation: 10,
                     child: ListTile(
                       leading: CircleAvatar(
-                        child: Text("${index + 1}"),
+                        child: !task.status
+                            ? Checkbox(
+                                value: false,
+                                onChanged: (value) {
+                                  homeProvider.updateTaskCompletion(
+                                    index,
+                                    value ?? false,
+                                    task,
+                                  );
+                                },
+                              )
+                            : const Icon(
+                                Icons.done,
+                                color: Colors.green,
+                              ),
                       ),
                       title: Text(task.task),
                       trailing: PopupMenuButton(

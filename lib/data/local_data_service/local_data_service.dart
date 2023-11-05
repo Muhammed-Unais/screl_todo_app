@@ -38,4 +38,9 @@ class LocalDataService implements BaseLocalDataService {
       log(e.toString());
     }
   }
+
+  @override
+   TaskModel? getAt(int index)  {
+    return taskBox.getAt(index);
+  }
 }
