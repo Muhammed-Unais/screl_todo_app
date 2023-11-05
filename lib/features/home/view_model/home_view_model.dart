@@ -20,14 +20,7 @@ class HomeViewModel with ChangeNotifier {
 
   bool postIsLoading = false;
 
-  bool deleteIsLoading = false;
-
-  bool isTaskCompleted = false;
-
-  void setIscompleted(bool isCompleted) {
-    isTaskCompleted = isCompleted;
-    notifyListeners();
-  }
+  bool deleteIsLoading = false; 
 
   void setDeleteTasks(bool isLoading) {
     deleteIsLoading = isLoading;
@@ -78,7 +71,7 @@ class HomeViewModel with ChangeNotifier {
         .then((value) {
       getAllTask();
     }).onError((error, stackTrace) {
-      
+
     });
   }
 

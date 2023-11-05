@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screl_todo_app/data/response/enums.dart';
 import 'package:screl_todo_app/features/add_task_view/view/add_tasks.dart';
+import 'package:screl_todo_app/features/home/view/components/todo_list_tale.dart';
 import 'package:screl_todo_app/features/home/view_model/home_view_model.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -55,51 +56,9 @@ class MyHomePage extends StatelessWidget {
                 },
                 itemBuilder: (context, index) {
                   var task = data[index];
-                  return Card(
-                    elevation: 10,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        child: !task.status
-                            ? Checkbox(
-                                value: false,
-                                onChanged: (value) {
-                                  homeProvider.updateTaskCompletion(
-                                    index,
-                                    value ?? false,
-                                    task,
-                                  );
-                                },
-                              )
-                            : const Icon(
-                                Icons.done,
-                                color: Colors.green,
-                              ),
-                      ),
-                      title: Text(task.task),
-                      trailing: PopupMenuButton(
-                        onSelected: (value) {
-                          if (value == "Delete") {
-                            homeProvider.deleteTask(index);
-                          } else if (value == "Edit") {}
-                        },
-                        itemBuilder: (context) {
-                          return [
-                            const PopupMenuItem(
-                              value: "Delete",
-                              child: Text(
-                                "Delete",
-                              ),
-                            ),
-                            const PopupMenuItem(
-                              value: "Edit",
-                              child: Text(
-                                "Edit",
-                              ),
-                            ),
-                          ];
-                        },
-                      ),
-                    ),
+                  return TodoListTile(
+                    task: task,
+                    index: index,
                   );
                 },
               );
@@ -114,3 +73,5 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+

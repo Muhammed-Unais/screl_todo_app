@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screl_todo_app/features/add_task_view/view_model/add_task_view_model.dart';
+import 'package:screl_todo_app/features/home/model/task_model.dart';
 
 final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
 class AddTasks extends StatelessWidget {
-  const AddTasks({super.key});
+  const AddTasks({super.key, this.isCreate = true, this.taskModel, this.index});
+
+  final bool isCreate;
+
+  final TaskModel? taskModel;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            var addTaskProvider = context.read<AddTaskViewModel>();
+            addTaskProvider.taskTextEditingController.clear();
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
         centerTitle: true,
-        title: const Text("Create Your Todo"),
+        title: Text(isCreate ? " Create Your Task" : "Update Your Task"),
       ),
       body: Form(
         key: formkey,
@@ -31,9 +45,13 @@ class AddTasks extends StatelessWidget {
               keyboardType: TextInputType.multiline,
               maxLines: 2,
               minLines: 1,
-              decoration: const InputDecoration(hintText: "Task"),
+              decoration: const InputDecoration(
+                hintText: "Task",
+              ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(
+              height: 30,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.cyanAccent,
@@ -42,16 +60,24 @@ class AddTasks extends StatelessWidget {
                 var addTaskProvider = context.read<AddTaskViewModel>();
                 if (formkey.currentState!.validate() &&
                     formkey.currentState != null) {
-                  addTaskProvider.postTask(
-                    addTaskProvider.taskTextEditingController.text,
-                    false,
-                    context,
-                  );
-                  addTaskProvider.taskTextEditingController.clear();
+                  if (isCreate) {
+                    addTaskProvider.postTask(
+                      addTaskProvider.taskTextEditingController.text,
+                      false,
+                      context,
+                    );
+                  } else {
+                    addTaskProvider.editTask(
+                      addTaskProvider.taskTextEditingController.text,
+                      index!,
+                      taskModel!,
+                      context,
+                    );
+                  }
                 }
               },
-              child: const Text(
-                "Create",
+              child: Text(
+                isCreate ? "Create" : "Update",
               ),
             )
           ],
